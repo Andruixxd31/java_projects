@@ -1,9 +1,5 @@
-import java.awt.*;
-import javax.swing.*;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import javax.swing.JFrame;
 
 public class Caja3D {
 	private int x0,
@@ -45,7 +41,7 @@ public class Caja3D {
 		this.calculaVertices();
 	}
 
-	private void calculaVertices() {//Calcula el valor de cada v�rtice vxTapa, vyTapa, vxPared y vyPared
+	private void calculaVertices() {//Calcula el valor de cada vertice vxTapa, vyTapa, vxPared y vyPared
 		//*vxTapa 
 		this.vxTapa[0]=this.x0;
 		this.vxTapa[1]=(int)(this.x0+this.ancho*0.15);
@@ -69,11 +65,7 @@ public class Caja3D {
 	}
 
 	//Recibe el color que tendr� el frente de la Caja y lo settea
-	//el color de la Tapa (superior) es 20% mayor en cada componente (RGB)
-	//en caso de que al incrementar el 20% este valor fuera mayor a 255 entonces lo deja como 255
-	//Ejemplo si colorFrente vale 100,100,100 entonces colorTapa es 120,120,120
-	//El color de la pared lateral es 20% menor cada componente (RGB) que el del frente de la caja.
-	//Ejemplo si colorFrente vale 100,100,100 entonces colorPared es 80,80,80
+	//El color de la tapa es 20% mayor y el de la pared es 20% menor
 	public void setColorFrente(Color color) {
 		this.colorFrente = color;
 		this.colorPared = new Color(
@@ -82,17 +74,15 @@ public class Caja3D {
 								(int)(color.getBlue()*.8)
 								);
 		this.colorTapa = new Color(
-								(int)(color.getRed()*1.2) > 255 ? 255 : (int)(color.getRed()*1.2),
+								(int)(color.getRed()*1.2) > 255 ? 255 : (int)(color.getRed()*1.2), //si da mayor a 255 el valor se settera a 255
 								(int)(color.getGreen()*1.2) > 255 ? 255 : (int)(color.getGreen()*1.2),
 								(int)(color.getBlue()*1.2) > 255 ? 255 : (int)(color.getBlue()*1.2)
 								);
 	}
 	
-	// Este método pinta la caja de acuerdo al valor de sus atributos
-	//Si el ancho y alto no son mayores a 0 entonces no dibuja nada
 	public void pintaCaja(Graphics g) {
 		this.setColorFrente(this.colorFrente);
-		if (this.alto > 0 && this.ancho > 0) {
+		if (this.alto > 0 && this.ancho > 0) { //no pinta si no hay ancho y altura
 			g.setColor(colorFrente); 
 			g.fillRect(
 					this.x0, 
@@ -107,10 +97,6 @@ public class Caja3D {
 		}
 	}
 	
-	
-	//Regresa el objeto en el siguiente formato
-	//x0 y0 xf yf colorRGB
-	//Hay un espacio en blanco entre cada valor. xf y yf se refieren a la coordenada inferior derecha de la caja
 	public String toString() {
 		return this.x0 + " " + this.y0 + " " + (this.x0+this.ancho) + " " + (this.y0+this.alto) + " " + this.colorFrente.getRGB();
 	}

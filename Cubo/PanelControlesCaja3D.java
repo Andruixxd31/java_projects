@@ -1,27 +1,16 @@
 import java.awt.*;
-import javax.swing.*;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.*;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.StringTokenizer;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-//Esta clase es un Panel capaz de controlar los eventos de los botones que contiene
+//Panel que controla los eventos de los botones
 public class PanelControlesCaja3D extends JPanel implements ActionListener{
 	private PanelCaja3D pCaja;
 	private JButton btGuardar;
 	private JButton btAbrir;
 	
-	//Completa el contructor de manera que inicialice el panel y cada uno de sus atributos.
-	//Es posible que tengas que modificar la firma del constructor
 	public PanelControlesCaja3D(PanelCaja3D pCaja) {
 		super(); 
 		this.setPreferredSize(new Dimension(100,800));
@@ -46,10 +35,10 @@ public class PanelControlesCaja3D extends JPanel implements ActionListener{
 		if(evt.getSource() == this.btGuardar){
 			try {
 				PrintWriter pw =  new PrintWriter(new FileWriter("caja.txt"));
-				pw.println(this.pCaja.getCaja().toString());
+				pw.println(this.pCaja.getCaja().toString()); //accede al metodo toString de caja para obtener los atributos
 				pw.close();
 			} catch (IOException ex) {
-				System.out.println("No se pudo guardar bien el archio");
+				System.out.println("No se pudo guardar bien el archivo");
 			}
 		}else if (evt.getSource() == this.btAbrir){
 			try{
@@ -60,9 +49,9 @@ public class PanelControlesCaja3D extends JPanel implements ActionListener{
 				int xf = Integer.parseInt(st.nextToken());
 				int yf = Integer.parseInt(st.nextToken());
 				int rgb = Integer.parseInt(st.nextToken());
-				this.pCaja.setCaja(new Caja3D(x0, y0, new Color(rgb)));
-				this.pCaja.getCaja().setXYFin(xf, yf);
-				this.pCaja.repaint();
+				this.pCaja.setCaja(new Caja3D(x0, y0, new Color(rgb))); //cambiando la caja a los valores dados
+				this.pCaja.getCaja().setXYFin(xf, yf); //mandando las coordenadas finales para que se calcule el ancho y altura de la caja
+				this.pCaja.repaint(); //repintando para eliminar lo que se muestra y pintar la caja guardada
 				bf.close();
 			}catch(FileNotFoundException ex){
 				System.out.println("No se pudo econtrar el archivo");
@@ -72,14 +61,4 @@ public class PanelControlesCaja3D extends JPanel implements ActionListener{
 			}
 		}
 	}
-
-	//M�todo para controlar los eventos de los botones
-	//Si se oprime el bot�n guardar deber� escribir en un archivo de texto llamado caja.txt
-	//en la carpeta default la informaci�n de la caja que est� en el panel y deber� hacerlo con el siguiebnte formato
-	//x0 y0 xf yf colorRGB
-	//Hay un espacio en blanco entre cada valor. xf y yf se refieren a la coordenada inferior derecha de la caja	
-	//Si se oprime el bot�n abrir deber� crear la caja que esta representada en el archivo caja.txt
-	//Y que se muestre en el PanelCaja3D
-	// public void XXX(YYY evt) {
-	// }
 }
