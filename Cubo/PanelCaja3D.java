@@ -45,7 +45,7 @@ public class PanelCaja3D extends JPanel implements MouseListener, MouseMotionLis
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
-		Color color = JColorChooser.showDialog(this, "Escoge Color", Color.BLUE);
+		Color color = JColorChooser.showDialog(this, "Escoge Color", this.caja.getColorFrente());
 		this.caja.setColorFrente(color);
 		this.repaint();
 	}

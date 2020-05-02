@@ -79,6 +79,10 @@ public class Caja3D {
 								(int)(color.getBlue()*1.2) > 255 ? 255 : (int)(color.getBlue()*1.2)
 								);
 	}
+
+	public Color getColorFrente(){
+		return this.colorFrente;
+	}
 	
 	public void pintaCaja(Graphics g) {
 		this.setColorFrente(this.colorFrente);
